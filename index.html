@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3D scene built with Three.js and Vite.">
+    <title>Three.js Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=KoHo:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --btn-color: var(--color-white);
+    --btn-background: var(--color-black);
+    --btn-color-hover: var(--color-black);
+    --btn-background-hover: rgba(255, 255, 255, 0.85);
+    --border-color: var(--color-white);
+    --border-color-hover: var(--color-black);
+}
+
+h2, h3, h4, h5, h6, p {
+    color: var(--color-white);
+    margin: 0;
+}
+
+h2 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 8rem; /* Adjusted for responsiveness */
+}
+        h2 {
+            font-family: "Bebas Neue", sans-serif;
+            font-size: 128px;
+        }
+        h3 {
+            font-family: "KoHo", sans-serif;
+            font-size: 32px;
+            font-weight: 100;
+        }
+
+        h4 {
+            font-family: "KoHo", sans-serif;
+            font-size: 64px;
+            font-weight: 100;
+        }
+
+        h5 {
+            font-family: "KoHo", sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        h6 {
+            font-family: "Bebas Neue", sans-serif;
+            font-size: 20px;
+        }
+
+        p {
+            font-family: "Roboto Mono", monospace;
+            font-size: 100px;
+            font-weight: 500;
+        }
+
+        .absolute {
+        position: relative;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        font-family: KoHo, sans-serif;
+        }
+
+        .intro, .about-me, .projects {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .View-more {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            flex-direction: column;
+            margin-top: 100px;
+        }
+
+        .View-more:hover svg ellipse {
+            fill: white;
+        }
+
+        .View-more:hover svg path {
+            fill: black;
+        }
+        /* About Me */
+        
+        /* About Section Styling */
+.about-me {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(33,33,33,0.8)), url('/path-to-your-background-image.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.about-container {
+    max-width: 1200px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.about-me h5 {
+    font-family: "KoHo", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #fff;
+    letter-spacing: 1.5px;
+}
+
+.about-me .description p {
+    font-family: "Roboto Mono", monospace;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #f5f5f5;
+}
+.about-me:hover .description p {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+/* Animations */
+.about-me .description p {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1.2s ease forwards;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+        /* Projects */
+        .project-cards {
+            display: flex;
+            margin: 50px 0;
+            gap: 50px;
+            justify-content: center;
+        }
+
+        .project-card {
+            position: relative;
+            width: 25vw;
+            height: calc(25vw * 1.75);
+            max-width: 256px;
+            max-height: 448px;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .project-card svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(25vw * 1.167);
+            height: calc(25vw * 1.95);
+            max-width: 299px;
+            max-height: 498.5px;
+            pointer-events: none;
+            z-index: 20;
+            transition: transform 0.3s ease, fill 0.3s ease;
+            stroke-width: 5;
+            transform-origin: center;
+        }
+
+        .project-card:hover svg {
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+
+        .project-card:hover svg path {
+            fill: black;
+            stroke: black;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.75);
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .overlay-text {
+            font-family: "Bebas Neue", sans-serif;
+            font-size: 32px;
+            color: #000;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .project-card:hover .overlay,
+        .project-card:hover .overlay-text {
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .project-card {
+                width: 50vw;
+                height: calc(50vw * 1.75);
+            }
+
+            .project-card svg {
+                width: calc(50vw * 1.167);
+                height: calc(50vw * 1.95);
+            }
+        }
+
+        .button-container {
+            display: flex;
+            gap: 100px;
+        }
+
+        .btn {
+            display: block;
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 15px 50px 20px;
+            background-color: var(--btn-background);
+            color: var(--btn-color);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn--stripe::after {
+            content: '';
+            display: block;
+            height: 7px;
+            width: 100%;
+            background-image: repeating-linear-gradient(
+                45deg,
+                var(--border-color),
+                var(--border-color) 1px,
+                transparent 2px,
+                transparent 5px
+            );
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background-size: 7px 7px;
+        }
+
+        .btn--stripe:hover {
+            background-color: var(--btn-background-hover);
+            color: var(--btn-color-hover);
+            border-color: var(--border-color-hover);
+            border-bottom-color: transparent; /* Small design enhancement */
+        }
+
+        .btn--stripe:hover::after {
+            background-image: repeating-linear-gradient(
+                45deg,
+                var(--btn-color-hover),
+                var(--btn-color-hover) 1px,
+                transparent 2px,
+                transparent 5px
+            );
+            animation: stripe-slide 12s infinite linear forwards;
+            border-top: 1px solid var(--border-color-hover);
+        }
+
+        @keyframes stripe-slide {
+            from { background-position: 0% 0; }
+            to { background-position: 100% 0; }
+        }
+
+        /* get in touch */
+
+        .GIT {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px; /* Adjusted for spacing */
+            text-align: center;
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .get-in-touch {
+    margin-top: 50px; /* Set the top margin to create space above */
+    margin-bottom: 50px; /* Adjust spacing between heading and the eye */
+    font-size: 5rem; /* Increase the font size */
+    color: var(--color-white); /* Ensure the color matches the theme */
+    text-align: center; /* Center the text */
+    font-family: "Bebas Neue", sans-serif; /* Ensure consistent font styling */
+    font-weight: bold; /* Make the text bold for better visibility */
+}
+
+
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInButton {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes textSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(100%) skewY(10deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) skewY(0deg);
+            }
+        }
+
+        .fadeIn {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+    .fadeInVisible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+        .fadeInButton {
+            animation: fadeInButton 3s ease 0.5s forwards;
+        }
+
+        .textSlideIn {
+            animation: textSlideIn 3s ease forwards;
+        }
+
+
+        #intro {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        #threejs-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Layer 1: UI Elements -->
+    <div id="intro">
+        <div class="absolute">
+            <div class="button-container">
+                <a href="about.html" class="btn btn--stripe fadeInButton" aria-label="About Button">About</a>
+                <a href="contact.html" class="btn btn--stripe fadeInButton" aria-label="Contact Button">Contact</a>
+            </div>
+
+            <div class="intro fadeIn">
+                
+                <h2 class="textSlideIn">Eshaan Logani</h2>
+                <h4 class="textSlideIn">Creative UI & UX Designer</h4>
+
+                <div class="View-more fadeIn">
+                    <h5>View More</h5>
+                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="18.5" cy="18.5" rx="18.5" ry="18.5" fill="none"/>
+                        <path d="M17.2929 26.7071C17.6834 27.0976 18.3166 27.0976 18.7071 26.7071L25.0711 20.3431C25.4616 19.9526 25.4616 19.3195 25.0711 18.9289C24.6805 18.5384 24.0474 18.5384 23.6569 18.9289L18 24.5858L12.3431 18.9289C11.9526 18.5384 11.3195 18.5384 10.9289 18.9289C10.5384 19.3195 10.5384 19.9526 10.9289 20.3431L17.2929 26.7071ZM35 18.5C35 27.6127 27.6127 35 18.5 35V37C28.7173 37 37 28.7173 37 18.5H35ZM18.5 35C9.3873 35 2 27.6127 2 18.5H0C0 28.7173 8.28273 37 18.5 37V35ZM2 18.5C2 9.3873 9.3873 2 18.5 2V0C8.28273 0 0 8.28273 0 18.5H2ZM18.5 2C27.6127 2 35 9.3873 35 18.5H37C37 8.28273 28.7173 0 18.5 0V2ZM17 10V26H19V10H17Z" fill="white"/>
+                    </svg>
+                </div>
+
+                <div id="about" class="about-me fadeIn">
+                    <h4>About</h4>
+                    <div class="about-container">
+                        <div class="description">
+                            <h3>Creating visually compelling and highly functional digital experiences <span class="highlight">Based in Vancouver</span>. Crafting user-focused designs that not only look great but also perform seamlessly. Introducing and experimenting with different and innovative user flows and designs. Expanding the world of possibilities on the web.</h3>
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="projects fadeIn">
+                    <h4>Projects</h4>
+                    <div class="project-cards">
+                        <div class="project-card">
+                            <a href="rudebot.html" class="card-link">
+                                <img src="/assets/rudebot.png" alt="RudeBot">
+                                <svg class="plus" width="1124" height="1957" viewBox="0 0 1124 1957" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1099.56 1907V1932.56M1099.56 1932.56V1957M1099.56 1932.56H1124M1099.56 1932.56H1074M25.5556 1907V1932.56M25.5556 1932.56V1957M25.5556 1932.56H50M25.5556 1932.56H0M1099.56 0V25.5556M1099.56 25.5556V50M1099.56 25.5556H1124M1099.56 25.5556L1074 25.5556M25.5556 0V25.5556M25.5556 25.5556V50M25.5556 25.5556H50M25.5556 25.5556L0 25.5556" fill="white" stroke="white" stroke-width="10"/>
+                                </svg>
+                                <div class="overlay">
+                                    <div class="overlay-text">
+                                        <img src="/assets/rudy.png" alt="">
+                                        RudeBot
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="project-card">
+                            <img src="/assets/Dscasa.png" alt="DsCasa">
+                            <svg class="plus" width="1124" height="1957" viewBox="0 0 1124 1957" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1099.56 1907V1932.56M1099.56 1932.56V1957M1099.56 1932.56H1124M1099.56 1932.56H1074M25.5556 1907V1932.56M25.5556 1932.56V1957M25.5556 1932.56H50M25.5556 1932.56H0M1099.56 0V25.5556M1099.56 25.5556V50M1099.56 25.5556H1124M1099.56 25.5556L1074 25.5556M25.5556 0V25.5556M25.5556 25.5556V50M25.5556 25.5556H50M25.5556 25.5556L0 25.5556" fill="white" stroke="white" stroke-width="10"/>
+                            </svg>
+                            <div class="overlay">
+                                <div class="overlay-text">
+                                    <img src="/assets/dscasaLogo.png" alt="">
+                                    D's Casa
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <img src="/assets/rudebot.png" alt="Project 1">
+                            <svg class="plus" width="1124" height="1957" viewBox="0 0 1124 1957" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1099.56 1907V1932.56M1099.56 1932.56V1957M1099.56 1932.56H1124M1099.56 1932.56H1074M25.5556 1907V1932.56M25.5556 1932.56V1957M25.5556 1932.56H50M25.5556 1932.56H0M1099.56 0V25.5556M1099.56 25.5556V50M1099.56 25.5556H1124M1099.56 25.5556L1074 25.5556M25.5556 0V25.5556M25.5556 25.5556V50M25.5556 25.5556H50M25.5556 25.5556L0 25.5556" fill="white" stroke="white" stroke-width="5"/>
+                            </svg>
+                            <div class="overlay">
+                                <div class="overlay-text">RudeBot</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn--stripe fadeInButton">View Projects</button>
+                    </div>
+
+                   <div>
+                    <h2 class="get-in-touch">Get in Touch</h2>
+                    <div class="GIT" style="position: relative; width: 300px; height: 300px;">
+                        <canvas id="canvas" style="position: absolute; top: 0; left: 0; z-index: 1;"></canvas>
+                        <div class="svg-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+                            <svg width="403" height="403" viewBox="0 0 403 403" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                style="position: absolute; top: -51.5px; left: -51.5px;">
+                                <path d="M2 2H52V52H2V2Z" fill="white"/>
+                                <path d="M351 2H401V52H351V2Z" fill="white"/>
+                                <path d="M2 351H52V401H2V351Z" fill="white"/>
+                                <path d="M351 351H401V401H351V351Z" fill="white"/>
+                                <path d="M26.75 11V27.25M26.75 27.25V43.5M26.75 27.25H43M26.75 27.25L10.5 27.25M375.75 11V27.25M375.75 27.25V43.5M375.75 27.25H392M375.75 27.25L359.5 27.25M26.75 360V376.25M26.75 376.25V392.5M26.75 376.25H43M26.75 376.25H10.5M375.75 360V376.25M375.75 376.25V392.5M375.75 376.25H392M375.75 376.25H359.5M2 2H52V52H2V2ZM351 2H401V52H351V2ZM2 351H52V401H2V351ZM351 351H401V401H351V351Z" stroke="black" stroke-width="3"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>      
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layer 2: Three.js Scene -->
+    <div id="threejs-container">
+        <div id="canvas-container"></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

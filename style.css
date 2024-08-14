@@ -1,0 +1,97 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.header h1 {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.project-inquiries,
+.connect,
+.services {
+    flex: 1 1 30%;
+    margin-bottom: 30px;
+}
+
+.project-inquiries h2,
+.connect h2,
+.services h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.project-inquiries p,
+.connect ul,
+.services ul {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.connect ul,
+.services ul {
+    list-style: none;
+    padding: 0;
+}
+
+.connect li,
+.services li {
+    margin-bottom: 10px;
+}
+
+.connect a,
+.services a {
+    color: white;
+    text-decoration: none;
+}
+
+.connect a:hover,
+.services a:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.footer a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.image-container {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.image-container img {
+    width: 100%;
+}
