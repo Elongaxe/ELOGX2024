@@ -36,11 +36,13 @@ directionalLight.position.set(-5, 10, 5);
 directionalLight.castShadow = true;
 scene.add(directionalLight);
 
-const loader = new GLTFLoader();
-loader.load('/assets/city.glb', (gltf) => {
-    const city = gltf.scene;
-    city.scale.set(1, 1, 1);
-    scene.add(city);
+const basePath = window.location.pathname.includes('ELOGX2024') ? '/ELOGX2024/' : '/';
+const modelPath = `${basePath}assets/city.glb`;
+
+loader.load(modelPath, function (gltf) {
+    scene.add(gltf.scene);
+});
+
 
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
